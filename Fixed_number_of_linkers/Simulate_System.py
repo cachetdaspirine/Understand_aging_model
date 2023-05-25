@@ -61,11 +61,11 @@ class Simulation:
         #self.PL = np.zeros(self.L_size,dtype=float)
         #self.PR = np.zeros(self.size,dtype=float)
         self.R = np.zeros((self.step_tot,self.Gillespie.Nlinker,3),dtype=float) # store the position of the linkers
-        self.L = np.zeros((self.step_tot,self.Gillespie.Nlinker),dtype=float)
+        self.L = np.zeros((self.step_tot,self.Gillespie.get_N_loop()),dtype=float)
         self.dt = np.zeros(self.step_tot,dtype=float)
         self.move = np.zeros(4,dtype=float)
         self.prev_R = self.Gillespie.get_r()#self.average_distance(self.Gillespie.get_r())
-        self.prev_L = np.zeros(self.Gillespie.Nlinker,dtype=float)
+        self.prev_L = np.zeros(self.Gillespie.get_N_loop(),dtype=float)
         for i in range(self.Gillespie.get_ell().__len__()): # 0 if there the linker is unbound
             self.prev_L[i] = self.Gillespie.get_ell()[i]
         tot_bound_time=0
@@ -84,7 +84,7 @@ class Simulation:
             #self.compute_statistics(Dt,movetype)
             tot_bound_time += Dt
             self.prev_R = self.Gillespie.get_r()#self.average_distance(self.Gillespie.get_r())
-            self.prev_L = np.zeros(self.Gillespie.Nlinker,dtype=float)
+            self.prev_L = np.zeros(self.Gillespie.get_N_loop(),dtype=float)
             for i in range(self.Gillespie.get_ell().__len__()): # 0 if there the linker is unbound
                 self.prev_L[i] = self.Gillespie.get_ell()[i]
             self.move[movetype] +=1
